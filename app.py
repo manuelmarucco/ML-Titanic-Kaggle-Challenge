@@ -52,9 +52,8 @@ Fare           float64      Ordinal
 Cabin           object      Categorical
 Embarked        object      Categorical
 
-"""
 
-""" NOTES
+NOTES
 pclass: A proxy for socio-economic status (SES)
 1st = Upper
 2nd = Middle
@@ -74,7 +73,26 @@ Some children travelled only with a nanny, therefore parch=0 for them.
 
 #%% DATA PREPARATION
 
+print("DATASET: MISSING VALUES %")
+print(df.isnull()
+        .sum().apply(lambda x: str('%.1f'%(x/len(df.index)*100)) + ' %'))
+"""
+NOTES: DATASET MISSING VALUES
 
+PassengerId     0.0 %
+Survived        0.0 %
+Pclass          0.0 %
+Name            0.0 %
+Sex             0.0 %
+Age            19.9 %
+SibSp           0.0 %
+Parch           0.0 %
+Ticket          0.0 %
+Fare            0.0 %
+Cabin          77.1 %
+Embarked        0.2 %
+
+"""
 
 """
 REMOVE FEATURES
@@ -163,3 +181,17 @@ print('Female Survival Rate',survived_females/total_females*100,'%')
 survived_males = len(df_raw[df_raw.Sex == 'male'][df_raw['Survived'] == 1])
 total_males = len(df_raw[df_raw.Sex == 'male'])
 print('Male Survival Rate',survived_males/total_males*100,'%')
+
+## TODO: Replace the female calculation with the bottom IMPORTANCE
+"""
+
+
+#Discrete Variable Correlation by Survival using
+#group by aka pivot table: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html
+for x in data1_x:
+    if data1[x].dtype != 'float64' :
+        print('Survival Correlation by:', x)
+        print(data1[[x, Target[0]]].groupby(x, as_index=False).mean())
+        print('-'*10, '\n')
+
+"""
